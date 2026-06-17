@@ -3,6 +3,8 @@ package vincenzomanfredi.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "persona")
@@ -20,6 +22,9 @@ public class Persona {
 
     @Enumerated(EnumType.STRING)
     private Sesso sesso;
+
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.REMOVE)
+    private List<Partecipazione> listaPartecipazioni = new ArrayList<>();
 
     public Persona() {
 
@@ -75,6 +80,14 @@ public class Persona {
 
     public void setSesso(Sesso sesso) {
         this.sesso = sesso;
+    }
+
+    public List<Partecipazione> getListaPartecipazioni() {
+        return listaPartecipazioni;
+    }
+
+    public void setListaPartecipazioni(List<Partecipazione> listaPartecipazioni) {
+        this.listaPartecipazioni = listaPartecipazioni;
     }
 
     @Override
